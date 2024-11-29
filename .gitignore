@@ -23,3 +23,9 @@ go.work.sum
 
 # env file
 .env
+
+assets/reportformats/*
+!assets/reportformats/test.html
+
+*.html
+*.pdf

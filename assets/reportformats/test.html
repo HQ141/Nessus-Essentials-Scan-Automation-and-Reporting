@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #ff6600;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #ff6600;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .intro-text {
+            margin-bottom: 30px;
+        }
+        .vulnerability-details {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .vulnerability-header {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .vulnerability-section {
+            margin-bottom: 10px;
+        }
+        .vulnerability-section span {
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Vulnerability Assessment Report</h1>
+
+    <div class="intro-text">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis auctor est id bibendum. Donec pellentesque dui sed neque sollicitudin faucibus. Vivamus eget faucibus lorem. Sed auctor urna vel dui posuere lacinia. Etiam sit amet facilisis quam, sed facilisis ante. Vivamus ullamcorper vestibulum lorem aliquam malesuada.</p>
+        <p><strong>Date of Generation:</strong> {{.DateGenerated}}</p>
+        <p><strong>Tools Used:</strong> Nessus and other automated scanning utilities</p>
+        <p>This is an automated report generated as part of a routine security evaluation process. It provides actionable insights to address high, medium, and low-severity vulnerabilities</p>
+    </div>
+
+    <h2>Vulnerabilities Identified:</h2>
+
+    <!-- Vulnerabilities List -->
+    {{range .Vulnerabilities}}
+    <div class="vulnerability-details">
+        <div class="vulnerability-header">{{.PluginName}}</div>
+        <div class="vulnerability-section"><span>Vulnerability ID#:</span> {{.PluginID}}</div>
+        <div class="vulnerability-section"><span>CVSS v3.0 Base Score:</span> {{.CVSS3BaseScore}}</div>
+        <div class="vulnerability-section"><span>Risk:</span> {{.Severity}}</div>
+        <div class="vulnerability-section"><span>Host:</span> {{.AssetName}}</div>
+        <div class="vulnerability-section"><span>Synopsis:</span> {{.Synopsis}}</div>
+        <div class="vulnerability-section"><span>Description:</span> {{.Description}}</div>
+        <div class="vulnerability-section"><span>Solution:</span> {{.Solution}}</div>
+        <div class="vulnerability-section"><span>VulnerabilityPriorityRating:</span> {{.VulnerabilityPriorityRating}}</div>
+        <div class="vulnerability-section"><span>VulnerabilityFirstDiscoveredDate:</span> {{.VulnerabilityFirstDiscoveredDate}}</div>
+        <div class="vulnerability-section"><span>VulnerabilityLastObservedDate:</span> {{.VulnerabilityLastObservedDate}}</div>
+        <div class="vulnerability-section"><span>PluginPublicationDate:</span> {{.PluginPublicationDate}}</div>
+        <div class="vulnerability-section"><span>Plugin Output:</span> {{.PluginOutput}}</div>
+        <div class="vulnerability-section"><span>Exploitability:</span> {{.Exploitability}}</div>
+    </div>
+    {{end}}
+
+    <div class="footer">
+        <p>Confidential and Proprietary</p>
+    </div>
+</div>
+
+</body>
+</html>
