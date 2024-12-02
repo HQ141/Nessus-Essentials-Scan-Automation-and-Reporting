@@ -130,7 +130,7 @@ func GetScanItems(context models.Nessus) ([][]string, error) {
 }
 
 func CreateHtml(records [][]string, outputHTMLPath string) error {
-	templateFilePath := "assets/reportformats/Vidizmoreport.html"
+	templateFilePath := "assets/reportformats/test.html"
 	tmpl, err := template.ParseFiles(templateFilePath)
 	if err != nil {
 		fmt.Println("Error parsing template file:", err)
