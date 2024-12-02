@@ -159,8 +159,11 @@ func CreateHtml(records [][]string, outputHTMLPath string) error {
 		} else {
 			vulnerability.Exploitability = "No"
 		}
-
+		vulnerability, err = dbaccess(vulnerability)
 		vulnerabilities = append(vulnerabilities, vulnerability)
+		if err != nil {
+			return err
+		}
 	}
 
 	reportData := models.ReportData{

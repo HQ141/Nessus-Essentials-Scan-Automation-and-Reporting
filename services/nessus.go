@@ -14,7 +14,7 @@ import (
 
 // Authenticate performs authentication and returns Nessus client
 func Authenticate() (models.Nessus, error) {
-	context, err := config.LoadConfig()
+	context, err := config.LoadNessusConfig()
 	if err != nil {
 		return models.Nessus{}, err
 	}

@@ -12,14 +12,12 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-
 	// Get scan items
 	records, err := services.GetScanItems(context)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-
 	// Create HTML report
 	err = services.CreateHtml(records, "hello.html")
 	if err != nil {
@@ -33,4 +31,5 @@ func main() {
 		log.Fatal(err)
 		return
 	}
+
 }

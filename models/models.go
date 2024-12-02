@@ -37,6 +37,12 @@ type Nessus struct {
 	HttpClient *http.Client
 }
 
+type DB struct {
+	Username string
+	Password string
+	Url      string
+}
+
 // Scan holds scan details
 type Scan struct {
 	ScanType             string  `json:"scan_type"`
