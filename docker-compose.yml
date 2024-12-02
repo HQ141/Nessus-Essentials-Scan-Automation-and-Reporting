@@ -1,4 +1,13 @@
 services:
+  nessus:
+      image: tenableofficial/nessus:10.5.1 
+      restart: always
+      container_name: nessus
+      environment:
+        USERNAME: admin
+        PASSWORD: admin
+      ports:
+        - 8884:8834
   db:
     image: postgres
     environment:
