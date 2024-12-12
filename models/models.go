@@ -37,6 +37,13 @@ type Nessus struct {
 	HttpClient *http.Client
 }
 
+type SMTP struct {
+	Username   string
+	Password   string
+	Url        string
+	Recipients string
+}
+
 type DB struct {
 	Username string
 	Password string

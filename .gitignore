@@ -22,10 +22,12 @@ go.work
 go.work.sum
 
 # env file
-.env
 
+*.env
 assets/reportformats/*
 !assets/reportformats/test.html
+!sample.env
+!sampledocker.env
 
 *.html
 *.pdf

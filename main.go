@@ -2,34 +2,23 @@ package main
 
 import (
 	"NessusEssAutomation/services"
+	"flag"
 	"log"
 )
 
 func main() {
-	// Authenticate and get the context
-	context, err := services.Authenticate()
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	// Get scan items
-	records, err := services.GetScanItems(context)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	// Create HTML report
-	err = services.CreateHtml(records, "hello.html")
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
+	var template string
+	flag.StringVar(&template, "template", "test.html", "one of the templates in reportformats folder")
+	sendgridmail := flag.Bool("sm", false, "send mail through sendgrid api")
+	loop := flag.Bool("L", false, "Run continously")
+	last := flag.Bool("l", false, "If true return last scan else will check if scan was performed in the last 12 hours if not will wait for scan")
+	log.Print("Started nessus handling utility")
+	flag.Parse()
 
-	// Create PDF from HTML
-	err = services.CreatePdf("hello.html", "hello.pdf")
-	if err != nil {
-		log.Fatal(err)
-		return
+	if *loop {
+		services.Run(*sendgridmail, *last, template)
+	} else {
+		services.RunOnce(*sendgridmail, *last, template)
 	}
 
 }

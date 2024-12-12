@@ -6,7 +6,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/jackc/pgx/v5"
@@ -22,8 +21,8 @@ func dbaccess(vulnerability models.Vulnerability) (models.Vulnerability, error) 
 	}
 	conn, err := pgx.Connect(context.Background(), fmt.Sprintf("postgres://%s:%s@%s", conf.Username, conf.Password, conf.Url))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
-		os.Exit(1)
+		log.Printf("Unable to connect to database: %v\n", err)
+		return models.Vulnerability{}, err
 	}
 	present := bool(false)
 	err = conn.QueryRow(context.Background(), fmt.Sprintf("SELECT EXISTS(select * from vulnerabilities where plugin_id='%s');", vulnerability.PluginID)).Scan(&present)
@@ -70,7 +69,6 @@ func dbaccess(vulnerability models.Vulnerability) (models.Vulnerability, error) 
 			return models.Vulnerability{}, err
 		}
 	} else {
-		// err = conn.QueryRow(context.Background(), fmt.Sprintf("select vulnerability_last_observed_date,vulnerability_first_discovered_date from vulnerabilities where plugin_id='%s';", vulnerability.PluginID)).Scan(&vulnerability.VulnerabilityLastObservedDate, &vulnerability.VulnerabilityFirstDiscoveredDate)
 		var dd1 pgtype.Date
 		var dt2 pgtype.Date
 		err = conn.QueryRow(context.Background(), "select vulnerability_last_observed_date,vulnerability_first_discovered_date from vulnerabilities where plugin_id=$1;", vulnerability.PluginID).Scan(&dd1, &dt2)

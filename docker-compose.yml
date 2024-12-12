@@ -1,23 +1,23 @@
 services:
   nessus:
-      image: tenableofficial/nessus:10.5.1 
+      image: tenableofficial/nessus:10.5.1
       restart: always
       container_name: nessus
-      environment:
-        USERNAME: admin
-        PASSWORD: admin
+      env_file:
+        - docker.env
       ports:
         - 8884:8834
+      volumes:
+        - nessus_opt:/opt/nessus/
   db:
     image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgress
-      - POSTGRES_DB=postgres
-    ports:
+    env_file:
+      - docker.env
+    ports:  
       - "5433:5432"
     volumes:
       - ./db.sql:/docker-entrypoint-initdb.d/db.sql
       - pgdata:/var/lib/postgresql/data
 volumes:
   pgdata:
+  nessus_opt:
