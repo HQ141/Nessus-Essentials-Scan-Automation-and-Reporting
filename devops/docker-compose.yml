@@ -11,6 +11,8 @@ services:
         - nessus_opt:/opt/nessus/
   db:
     image: postgres
+    restart: always
+    container_name: Db for automation
     env_file:
       - docker.env
     ports:  

@@ -26,14 +26,13 @@ func LoadNessusConfig() (models.Nessus, error) {
 // LoadConfig loads environment variables into the Config struct
 func LoadSMTPConfig() (models.SMTP, error) {
 	godotenv.Load(".env")
-	USERNAME, _username := os.LookupEnv("SMTP_USERNAME")
-	PASSWORD, _password := os.LookupEnv("SMTP_PASSWORD")
-	URL, _url := os.LookupEnv("SMTP_URL")
+	USERNAME, _username := os.LookupEnv("SENDGRID_USEREMAIL")
+	PASSWORD, _password := os.LookupEnv("SENDGRID_APIKEY")
 	RECEIVERS, _receivers := os.LookupEnv("RECEIVERS")
-	if !_password || !_username || !_url || !_receivers {
-		return models.SMTP{}, errors.New("SMTP environment variables not set")
+	if !_password || !_username || !_receivers {
+		return models.SMTP{}, errors.New("sendgrid environment variables not set")
 	}
-	config := models.SMTP{Username: USERNAME, Password: PASSWORD, Url: URL, Recipients: RECEIVERS}
+	config := models.SMTP{Username: USERNAME, Password: PASSWORD, Recipients: RECEIVERS}
 	return config, nil
 }
 
@@ -44,7 +43,7 @@ func LoadDBConfig() (models.DB, error) {
 	PASSWORD, _password := os.LookupEnv("POSTGRES_PASSWORD")
 	DATABASEURL, _databaseurl := os.LookupEnv("POSTGRES_URL")
 	if !_password || !_username || !_databaseurl {
-		return models.DB{}, errors.New("Postgress environment variables not set")
+		return models.DB{}, errors.New("postgress environment variables not set")
 	}
 
 	config := models.DB{Username: USERNAME, Password: PASSWORD, Url: DATABASEURL}
